@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="listaContatos">
+<head>
+
+    <title>Lista Telefonica</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.css"/>
+
+</head>
+<body>
+    <div class="container text-center"  ng-controller="listaContatosCtrl">
+        <h4>{{aplicacao}}</h4>
+    </div>
+
+    <script src="angular/angular.js"></script>
+    <script>
+        angular.module("listaContatos", []);
+        angular.module("listaContatos").controller("listaContatosCtrl", function ($scope, $http) {
+            $scope.aplicacao = "Minha Lista Telefonica";
+
+            $scope.contatos = [];
+
+
+            var carregarContatos = function () {
+                $http.get("http://localhost:8080/contatos").then(function (response) {
+                    $scope.contatos = response.data;
+                    console.log(response.data);
+                });
+            };
+
+            carregarContatos();
+
+        });
+    </script>
+</body>
+</html>

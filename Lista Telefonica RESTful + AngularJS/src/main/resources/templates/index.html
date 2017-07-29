@@ -7,8 +7,28 @@
 
 </head>
 <body>
-    <div class="container text-center"  ng-controller="listaContatosCtrl">
+    <div class="container"  ng-controller="listaContatosCtrl">
+
         <h4>{{aplicacao}}</h4>
+
+        <table class="container table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+            <tr ng-repeat="contato in contatos">
+                <td>{{contato.nome}}</td>
+                <td>{{contato.telefone}}</td>
+            </tr>
+        </table>
+
+        <form name="formAddContato" class="container">
+            <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
+            <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+            <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" >Adicionar Contato</button>
+        </form>
+
+
     </div>
 
     <script src="angular/angular.js"></script>
@@ -19,17 +39,32 @@
 
             $scope.contatos = [];
 
-
-            var carregarContatos = function () {
+            carregarContatos = function () {
                 $http.get("http://localhost:8080/contatos").then(function (response) {
                     $scope.contatos = response.data;
-                    console.log(response.data);
+                    console.log($scope.contatos);
                 });
             };
 
             carregarContatos();
 
+            $scope.adicionarContato = function (contato) {
+                $http.post("http://localhost:8080/contatos", contato).then(function (response) {
+                    delete $scope.contato;
+                    carregarContatos();
+                }, function (response) {
+                    console.log("Erro no POST");
+                });
+            }
+
         });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+

@@ -7,6 +7,8 @@ public class Contato {
     private String nome;
     private String telefone;
 
+    public Contato() { }
+
     public Contato(Integer id, String nome, String telefone) {
         this.id = id;
         this.nome = nome;

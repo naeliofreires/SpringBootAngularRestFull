@@ -3,10 +3,7 @@ package app.restController;
 import app.model.Contato;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +18,9 @@ public class ContatoResource {
     public ContatoResource() {
         this.contatos = new HashMap<Integer, Contato>();
 
-        Contato c1 = new Contato(1, "Workshop Rest", "24hs");
-        Contato c2 = new Contato(2, "Workshop Spring MVC", "24hs");
-        Contato c3 = new Contato(3, "Desenvolvimento Web com JSF 2", "60hs");
+        Contato c1 = new Contato(1, "Naelio Freires", "(85) 8856-8989");
+        Contato c2 = new Contato(2, "Maria Roberta", "(88) 8856-8966");
+        Contato c3 = new Contato(3, "Francisco Nacelio", "(85) 9986-5412");
 
         contatos.put(1, c1);
         contatos.put(2, c2);
@@ -34,5 +31,10 @@ public class ContatoResource {
     @RequestMapping(value = "/contatos", method = RequestMethod.GET)
     public ResponseEntity<List<Contato>> listar() {
         return new ResponseEntity<List<Contato>>(new ArrayList<Contato>(contatos.values()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/contatos", method = RequestMethod.POST, produces="application/json")
+    public void addContato(@RequestBody Contato contato){
+        this.contatos.put(contatos.get(contatos.size()).getId()+1,contato);
     }
 }

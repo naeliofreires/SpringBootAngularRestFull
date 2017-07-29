@@ -5,18 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.websocket.server.PathParam;
+import java.util.*;
 
 @RestController
 public class ContatoResource {
 
-    private Map<Integer, Contato> contatos;
+    private Map<Integer,Contato> contatos;
 
     public ContatoResource() {
-        this.contatos = new HashMap<Integer, Contato>();
+        this.contatos = new TreeMap<>();
 
         Contato c1 = new Contato(1, "Naelio Freires", "(85) 8856-8989");
         Contato c2 = new Contato(2, "Maria Roberta", "(88) 8856-8966");
@@ -35,6 +33,15 @@ public class ContatoResource {
 
     @RequestMapping(value="/contatos", method = RequestMethod.POST, produces="application/json")
     public void addContato(@RequestBody Contato contato){
-        this.contatos.put(contatos.get(contatos.size()).getId()+1,contato);
+        contato.setId(this.contatos.size()+1);
+        this.contatos.put(contato.getId(),contato);
     }
+
+    @RequestMapping(value="/contatos/{id}/delete", method = RequestMethod.DELETE, produces="application/json")
+    public  void deleteContato(@PathVariable Integer id){
+        System.out.println(id);
+        this.contatos.remove(id);
+    }
+
+
 }

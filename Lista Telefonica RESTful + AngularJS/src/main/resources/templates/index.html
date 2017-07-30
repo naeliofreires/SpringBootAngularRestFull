@@ -7,73 +7,41 @@
 
 </head>
 <body>
-    <div class="container  text-center"  ng-controller="listaContatosCtrl">
+    <div class="container "  ng-controller="listaContatosCtrl">
 
-        <h4>{{aplicacao}}</h4>
+        <h4 class="text-center">{{aplicacao}}</h4>
 
-        <table class="container table table-striped">
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-            </tr>
-            <tr ng-repeat="contato in contatos">
-                <td>{{contato.nome}}</td>
-                <td>{{contato.telefone}}</td>
-                <td>
-                    <button class="btn btn-primary btn-block" ng-click="deletarContato(contato)">delete</button>
-                </td>
-            </tr>
+        <table class="table text-center ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contato in contatos">
+                    <td>{{contato.id}}</td>
+                    <td>{{contato.nome}}</td>
+                    <td>{{contato.telefone}}</td>
+                    <td><button type="button" class="btn btn-primary">Warning</button></td>
+                    <td><button type="button" class="btn btn-danger" ng-click="deletarContato(contato)">delete</button></td>
+                </tr>
+            </tbody>
         </table>
 
         <form name="formAddContato" class="container">
             <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
             <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
-            <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" >Adicionar Contato</button>
+            <button class="btn btn-success btn-block" ng-click="adicionarContato(contato)" >Adicionar Contato</button>
         </form>
 
     </div>
 
     <script src="angular/angular.js"></script>
-    <script>
-        angular.module("listaContatos", []);
-
-        angular.module("listaContatos").controller("listaContatosCtrl", function ($scope, $http) {
-
-            $scope.aplicacao = "Minha Lista Telefonica";
-
-            $scope.contatos = [];
-
-            carregarContatos = function () {
-                $http.get("http://localhost:8080/contatos").then(function (response) {
-                    $scope.contatos = response.data;
-                    console.log($scope.contatos);
-                });
-            };
-
-            carregarContatos();
-
-            $scope.adicionarContato = function (contato) {
-                $http.post("http://localhost:8080/contatos", contato).then(function (response) {
-                    delete $scope.contato;
-                    carregarContatos();
-                }, function (response) {
-                    console.log("Response: " + response);
-                });
-            }
-
-            $scope.deletarContato = function (contato) {
-
-                $http.delete("http://localhost:8080/contatos/" + contato.id + "/delete").then(function (response) {
-                    delete $scope.contato;
-                    carregarContatos();
-                }, function (response, status) {
-                    console.log("Status:" + status)
-                });
-
-            };
-
-        });
-    </script>
+    <script src="angular/listaContatosCtrl.js"></script>
 </body>
 </html>
 

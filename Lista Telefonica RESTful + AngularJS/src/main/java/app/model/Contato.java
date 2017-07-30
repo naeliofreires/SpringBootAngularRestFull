@@ -1,8 +1,13 @@
 package app.model;
 
+import javax.persistence.*;
 
+@Entity(name="CONTATOS")
 public class Contato {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ID_CONTATO", nullable=false)
     private Integer id;
     private String nome;
     private String telefone;

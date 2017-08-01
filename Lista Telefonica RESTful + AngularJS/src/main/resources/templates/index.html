@@ -11,10 +11,9 @@
 
         <h4 class="text-center">{{aplicacao}}</h4>
 
-        <table class="table text-center ">
+        <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Nome</th>
                     <th>Telefone</th>
                     <th></th>
@@ -23,10 +22,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="contato in contatos">
-                    <td>{{contato.id}}</td>
                     <td>{{contato.nome}}</td>
                     <td>{{contato.telefone}}</td>
-                    <td><button type="button" class="btn btn-primary">Warning</button></td>
+                    <td><button type="button" class="btn btn-info">update</button></td>
                     <td><button type="button" class="btn btn-danger" ng-click="deletarContato(contato)">delete</button></td>
                 </tr>
             </tbody>
@@ -35,13 +33,19 @@
         <form name="formAddContato" class="container">
             <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
             <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
-            <button class="btn btn-success btn-block" ng-click="adicionarContato(contato)" >Adicionar Contato</button>
+            <button class="btn btn-success btn-block" ng-click="adicionarContato(contato)" >add contact</button>
         </form>
 
     </div>
 
     <script src="angular/angular.js"></script>
-    <script src="angular/listaContatosCtrl.js"></script>
+    <!--    controllers -->
+    <script src="js/controllers/listaContatosCtrl.js"></script>
+    <!--    serviços    -->
+    <script src="js/services/contatoAPIFactory.js"></script>
+    <script src="js/services/contatoAPIService.js"></script>
+    <!--    value   -->
+    <script src="js/value/configValue.js"></script>
 </body>
 </html>
 

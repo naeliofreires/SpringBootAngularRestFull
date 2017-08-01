@@ -28,8 +28,13 @@ public class ContatoResource {
     }
 
     @RequestMapping(value="/contatos/{id}/delete", method = RequestMethod.DELETE, produces="application/json")
-    public  void deleteContato(@PathVariable Integer id){
+    public void deleteContato(@PathVariable Integer id){
         this.contRepo.delete(id);
+    }
+
+    @RequestMapping(value = "/contatos", method = RequestMethod.PUT, produces="application/json")
+    public void updateContato(@RequestBody Contato contato){
+        this.contRepo.save(contato);
     }
 
 
